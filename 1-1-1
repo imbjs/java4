@@ -1,0 +1,47 @@
+package kr.ac.itschool.member;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JTable;
+import javax.swing.JTextField;
+
+import kr.ac.itschool.entities.Member;
+
+public class MemberGuiActionListener implements ActionListener {
+	JTable table; JTextField id; JTextField name;JTextField pw;
+	JTextField phone1 ;JTextField phone2;JTextField phone3; JTextField post;
+	JTextField addr1;JTextField addr2;
+
+	MemberGuiActionListener(JTable table, JTextField id, JTextField name,JTextField pw,
+			JTextField phone1,JTextField phone2,JTextField phone3, JTextField post,
+			JTextField addr1,JTextField addr2){
+		
+				this.table=table;
+				this.id=id;
+				this.pw=pw;
+				this.name=name;
+				this.phone1=phone1;
+				this.phone1=phone2;
+				this.phone3=phone3;
+				this.post=post;
+				this.addr1=addr1;
+				this.addr2=addr2;
+				
+			}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		System.out.println(e.getActionCommand());
+
+		Member data=new Member();
+		data.setId(id.getText());
+		data.setName(name.getText());
+		data.setPassword(pw.getText());
+		data.setPhone1(phone1.getText());
+		data.setPhone2(phone2.getText());
+		data.setPhone3(phone3.getText());
+		data.setAddr1(addr1.getText());
+		data.setAddr2(addr2.getText());
+	}
+
+}
