@@ -1,0 +1,144 @@
+package kr.ac.itschool.member;
+
+import java.awt.*;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;        
+import javax.swing.table.*;        
+class MemberGuiMain {
+    
+	public static void main(String[] args) {
+		JFrame frame = new JFrame("이게뭐지");
+		frame.setLocation(200,300);
+		frame.setPreferredSize(new Dimension(600,300));
+		Container contentPane = frame.getContentPane();
+		
+		GridLayout gridLayout = new GridLayout(7,2);		
+		JPanel panel = new JPanel();
+		
+		panel.setLayout(gridLayout);
+        JTextField id = new JTextField(8);
+        JTextField name = new JTextField(4);
+        JTextField pw = new JTextField(11);
+        JTextField tel = new JTextField(3);
+        JTextField tel2= new JTextField(4);
+        JTextField tel3= new JTextField(4);
+        JTextField postno = new JTextField(11);
+        JTextField addr = new JTextField(11);
+        JTextField addr2 = new JTextField(11);
+     
+        JPanel paneltel = new JPanel();
+        paneltel.add(tel);
+        paneltel.add(new JLabel("-"));
+        paneltel.add(tel2);
+        paneltel.add(new JLabel("-"));
+        paneltel.add(tel3);
+            
+       JPanel idserch=new JPanel();
+       JButton idser=new JButton("중복검사");
+       idserch.add(id);
+       idserch.add(idser);
+       
+        
+        JLabel id2 =new JLabel("id");
+        id2.setHorizontalAlignment(JLabel.CENTER);
+        panel.add(id2);
+        panel.add(idserch);
+        JLabel name2 =new JLabel("이름");
+        name2.setHorizontalAlignment(JLabel.CENTER);
+        panel.add(name2);
+        panel.add(name);
+        JLabel pw2 =new JLabel("비밀번호");
+        pw2.setHorizontalAlignment(JLabel.CENTER);
+        panel.add(pw2);
+        panel.add(pw);
+        JLabel teltel =new JLabel("전화번호");
+        teltel.setHorizontalAlignment(JLabel.CENTER);
+        panel.add(teltel);
+        panel.add(paneltel);
+        JLabel postno2 =new JLabel("우편번호");
+        postno2.setHorizontalAlignment(JLabel.CENTER);
+        panel.add(postno2);
+        panel.add(postno);
+        JLabel addr3 =new JLabel("주소");
+        addr3.setHorizontalAlignment(JLabel.CENTER);
+        panel.add(addr3);
+        panel.add(addr);
+        JLabel addr4 =new JLabel("나머지주소");
+        addr4.setHorizontalAlignment(JLabel.CENTER);
+        panel.add(addr4);
+        panel.add(addr2);
+        panel.setLayout(gridLayout);
+        contentPane.add(panel, BorderLayout.WEST);
+        
+        Container contentPane2= frame.getContentPane();
+        String colNames[] = { "이름", "나이", "성별" };
+        DefaultTableModel model = new DefaultTableModel(colNames, 0);
+        JTable table = new JTable(model);         
+        contentPane2.add(new JScrollPane(table), BorderLayout.CENTER);
+        
+        JPanel panel3 = new JPanel();
+        JButton button11 = new JButton("입력");
+        JButton button12 = new JButton("수정");
+        JButton button13 = new JButton("삭제");
+        JTextField serch = new JTextField(10);
+        JButton button14 = new JButton("검색");
+        JButton button15 = new JButton("취소");
+        panel3.add(button11);
+        panel3.add(button12);
+        panel3.add(button13);
+        panel3.add(serch);
+        panel3.add(button14);
+        panel3.add(button15);
+        contentPane.add(panel3, BorderLayout.SOUTH);
+       
+        ActionListener listener =new MemberGuiActionListener(table,id,name,pw,tel,tel2,tel3,postno,addr,addr2);
+        idser.addActionListener(listener);  
+        button11.addActionListener(listener);
+        button12.addActionListener(listener);
+        button13.addActionListener(listener);
+        button14.addActionListener(listener);
+        button15.addActionListener(listener);
+        
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+        
+    }
+}
+---------------------------------------------------------------------------------------
+package kr.ac.itschool.member;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JTable;
+import javax.swing.JTextField;
+
+public class MemberGuiActionListener implements ActionListener {
+	JTable table; JTextField id; JTextField name;JTextField pw;
+	JTextField tel ;JTextField tel2;JTextField tel3; JTextField postno;
+	JTextField addr;JTextField addr2;
+	MemberGuiActionListener(JTable table, JTextField id, JTextField name,JTextField pw,
+			JTextField tel,JTextField tel2,JTextField tel3, JTextField postno,
+			JTextField addr,JTextField addr2){
+				this.table=table;
+				this.id=id;
+				this.pw=pw;
+				this.name=name;
+				this.tel=tel;
+				this.tel2=tel2;
+				this.tel3=tel3;
+				this.postno=postno;
+				this.addr=addr;
+				this.addr2=addr2;
+				
+			}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		System.out.println(e.getActionCommand());
+
+
+	}
+
+}
