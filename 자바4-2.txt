@@ -1,0 +1,41 @@
+db connect
+
+for oracle
+1.Listener (명령어 cmd 창에서 lsnrctl -status,stop,start)
+2.Driver 
+3.user,password,url
+
+-------------------------------------------------------------------------
+package kr.ac.itschool.dbpool;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class DBpoolConnectTestMain {
+
+	public static void main(String[] args) {
+		DBConnectionManager db= DBConnectionManager.getInstance();
+		Connection cn=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		System.out.println("DB test");
+		String sql="SELECT * from student";
+		try {
+			cn= db.getConnection();
+			ps= (PreparedStatement) cn.prepareStatement(sql);
+			rs=ps.executeQuery();
+			while(rs.next()){
+				System.out.println("======>"+rs.getString("code")+" "+rs.getInt("age"));
+				System.out.println("======>");	
+				}
+//			if (rs.next()){
+//				System.out.println("count: "+rs.getInt(1));
+//			}
+		}catch (Exception e) {
+			System.out.println("db error:"+e.getMessage());
+		}
+	}
+}
+======================================================================
