@@ -1,0 +1,28 @@
+package kr.ac.itschool.dbpool;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class DBpoolConnectTestMain {
+
+	public static void main(String[] args) {
+		DBConnectionManager db= DBConnectionManager.getInstance();
+		Connection cn=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		System.out.println("DB test");
+		String sql="SELECT name,code,age from student";
+		try {
+			cn= db.getConnection();
+			ps= (PreparedStatement) cn.prepareStatement(sql);
+			rs=ps.executeQuery();
+			while(rs.next()){
+				System.out.println("==>"+rs.getString("code")+" "+rs.getString("age")+" "+rs.getString("name"));
+				}
+		}catch (Exception e) {
+			System.out.println("db error:"+e.getMessage());
+		}
+	}
+}
