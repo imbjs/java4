@@ -1,7 +1,7 @@
 db connect
 
 for oracle
-1.Listener (¸í·É¾î cmd Ã¢¿¡¼­ lsnrctl -status,stop,start)
+1.Listener (ëª…ë ¹ì–´ cmd ì°½ì—ì„œ lsnrctl -status,stop,start)
 2.Driver 
 3.user,password,url
 
