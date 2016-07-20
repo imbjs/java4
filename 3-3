@@ -1,0 +1,81 @@
+package kr.ac.itschool.service;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import kr.ac.itschool.custom.CustomDateFormat;
+import kr.ac.itschool.dao.MemberDao;
+import kr.ac.itschool.dbpool.DBConnectionManager;
+import kr.ac.itschool.entities.Member;
+
+public  class MemberDaoService implements MemberDao {
+	DBConnectionManager db= DBConnectionManager.getInstance();
+	Connection cn=null;
+	PreparedStatement ps=null;
+	ResultSet rs=null;
+
+	@Override
+	public boolean insertRow(Member data) {
+		boolean success=false;
+		String inputdate=CustomDateFormat.dateFormat();
+		StringBuilder sb= new StringBuilder();
+		
+		sb.append("INSERT INTO member(id,name,phone1,phone2,");
+		sb.append("phone3,post,addr1,addr2,cardno,job,picture,password,inputdate");
+		sb.append(")values(");
+		sb.append(" '"+data.getId()+"','"+data.getName()+"','"+data.getPhone1()+"',");
+		sb.append(" '"+data.getPhone2()+"','"+data.getPhone3()+"','"+data.getPost()+"',");
+		sb.append(" '"+data.getAddr1()+"','"+data.getAddr2()+"','"+data.getCardno()+"',");
+		sb.append(" '"+data.getJob()+"','"+data.getPicture()+"','"+data.getPassword()+"',");
+		sb.append(" '"+inputdate+"')");
+		String sql=sb.toString();
+		System.out.println(sql);
+		try {
+			cn= db.getConnection();
+			ps= (PreparedStatement) cn.prepareStatement(sql);
+			success=ps.execute();
+			success=true;
+			cn.close();
+			ps.close();
+			rs.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return success;
+	}
+
+	@Override
+	public boolean findId(String id) {
+		String sql="SELECT id from member where id='"+id+"' ";
+		boolean findid=false;	
+		try {
+			cn= db.getConnection();
+			ps= (PreparedStatement) cn.prepareStatement(sql);
+			rs=ps.executeQuery();
+			if(rs.next()){
+				findid=true;
+			}
+			cn.close();
+			ps.close();
+			rs.close();
+		}catch (Exception e) {
+			System.out.println("db error:"+e.getMessage());
+		}
+		return findid;
+	}
+	@Override
+	public void selectAll() {
+		String sql=" SELECT * from member";
+		try {
+			cn= db.getConnection();
+			ps= (PreparedStatement) cn.prepareStatement(sql);
+			rs=ps.executeQuery();
+			while(rs.next()){
+				System.out.println("==>"+rs.getString(1)+" "+rs.getString(2)+" "+rs.getString(3));
+			}
+		}catch (Exception e) {
+			System.out.println("db error:"+e.getMessage());
+		}
+	}
+}
